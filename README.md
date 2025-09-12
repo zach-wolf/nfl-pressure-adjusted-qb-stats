@@ -122,7 +122,7 @@ source("scripts/visualizations.R")
 
 ## Limitations
 
-- Pressure definition excludes hurries (≈60-70% of total pressure situations)
+- Pressure definition excludes hurries (≈50-60% of total pressure situations)
 - Play-level time-to-throw data not available in nflfastR
 - Analysis focuses on regular season performance only
 - Minimum sample size requirements may exclude some backup QBs
