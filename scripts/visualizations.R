@@ -102,6 +102,14 @@ qb_2024_table <- final_metrics %>%
   select(adj_epa_rank, player_name, adjusted_epa_plus, epa_plus, plus_diff, rank_diff) %>%
   arrange(desc(adjusted_epa_plus))
 
+qb_2025_table <- final_metrics %>%
+  filter(season == 2025) %>%
+  mutate(adj_epa_rank = rank(-adjusted_epa_plus),
+         epa_rank = rank(-epa_plus),
+         rank_diff = epa_rank - adj_epa_rank) %>%
+  select(adj_epa_rank, player_name, adjusted_epa_plus, epa_plus, plus_diff, rank_diff) %>%
+  arrange(desc(adjusted_epa_plus))
+
 # Table for README.md
 library(knitr)
 kable(qb_2024_table, 
