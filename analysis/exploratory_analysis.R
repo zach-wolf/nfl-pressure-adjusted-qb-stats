@@ -34,11 +34,29 @@ league_pressure_summary <- qb_plays %>%
 
 print(league_pressure_summary)
 
+# Season pressure statistics
+season_pressure_summary <- qb_plays %>%
+  group_by(season) %>%
+  summarise(
+    total_weeks = n_distinct(week),
+    total_dropbacks = n(),
+    total_pressure_plays = sum(qb_pressure, na.rm = TRUE),
+    league_pressure_rate = mean(qb_pressure, na.rm = TRUE),
+    league_pressure_to_sack = sum(sack, na.rm = TRUE) / sum(qb_pressure, na.rm =  TRUE),
+    avg_epa_clean = mean(epa[qb_pressure == 0], na.rm = TRUE),
+    avg_epa_pressure = mean(epa[qb_pressure == 1], na.rm = TRUE),
+    epa_drop = avg_epa_clean - avg_epa_pressure
+  )
+
+print(season_pressure_summary)
+
 # Calculate clean pocket vs pressure EPA for each QB
 qb_pressure_performance <- qb_plays %>%
+  inner_join(select(season_pressure_summary, season, total_weeks),
+             by = "season") %>%
   mutate(player_id = coalesce(passer_player_id, rusher_player_id),
          player_name = coalesce(passer_player_name, rusher_player_name)) %>%
-  group_by(player_id, player_name, season) %>%
+  group_by(player_id, player_name, season, total_weeks) %>%
   summarise(
     dropbacks = n(),
     scrambles = sum(qb_scramble, na.rm = TRUE),
@@ -59,7 +77,7 @@ qb_pressure_performance <- qb_plays %>%
     
     .groups = 'drop'
   ) %>%
-  filter(dropbacks >= 175) %>%  # Your minimum threshold
+  filter(dropbacks >= total_weeks*15/2) %>%  # Your minimum threshold
   arrange(desc(pressure_rate))
 
 print(qb_pressure_performance)
