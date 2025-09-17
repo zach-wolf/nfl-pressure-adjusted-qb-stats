@@ -19,7 +19,7 @@ actual_vs_adjusted <- final_metrics %>%
   theme_minimal() 
 
 ggsave(plot = actual_vs_adjusted,
-       filename = "output/figures/actual_vs_adjusted.png",
+       filename = "visualizations/actual_vs_adjusted.png",
        width = 8,
        height = 8)
 
@@ -46,7 +46,7 @@ performance_impact <- final_metrics %>%
   )
 
 ggsave(plot = performance_impact,
-       filename = "output/figures/performance_impact.png",
+       filename = "visualizations/performance_impact.png",
        width = 9,
        height = 6.5)
 
@@ -65,7 +65,7 @@ pressure_performance <- final_metrics %>%
   theme_minimal()
 
 ggsave(plot = pressure_performance,
-       filename = "output/figures/pressure_performance.png",
+       filename = "visualizations/pressure_performance.png",
        width = 8,
        height = 8)
 
@@ -90,7 +90,7 @@ scrambling_performance <- final_metrics %>%
   theme_minimal()
 
 ggsave(plot = scrambling_performance,
-       filename = "output/figures/scrambling_performance.png",
+       filename = "visualizations/scrambling_performance.png",
        width = 10,
        height = 8)
 
