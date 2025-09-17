@@ -1,6 +1,7 @@
 library(tidyverse)
 
 qb_plays <- read_csv("data/processed/qb_plays.csv")
+ngs_data <-read.csv("data/raw/ngs_data.csv")
 
 # Take a look at how 2024 shakes out
 qb_2024 <- qb_plays %>%
